@@ -1,27 +1,34 @@
-# MyFirstApp
+Add a default route
+When the app starts, the browsers address bar points to the web site's root. That doesn't match any existing route so the router doesn't navigate anywhere. The space below the <router-outlet> is blank.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.0.
+To make the app navigate to the dashboard automatically, add the following route to the AppRoutingModule.Routes array.
 
-## Development server
+content_copy
+{ path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+This route redirects a URL that fully matches the empty path to the route whose path is '/dashboard'.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+After the browser refreshes, the router loads the DashboardComponent and the browser address bar shows the /dashboard URL.
 
-## Code scaffolding
+Add dashboard link to the shell
+The user should be able to navigate back and forth between the DashboardComponent and the HeroesComponent by clicking links in the navigation area near the top of the page.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Add a dashboard navigation link to the AppComponent shell template, just above the Heroes link.
 
-## Build
+src/app/app.component.html
+content_copy
+<h1>{{title}}</h1>
+<nav>
+  <a routerLink="/dashboard">Dashboard</a>
+  <a routerLink="/heroes">Heroes</a>
+</nav>
+<router-outlet></router-outlet>
+<app-messages></app-messages>
+After the browser refreshes you can navigate freely between the two views by clicking the links.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+const routes: Routes = [
+  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'detail/:id', component: HeroDetailComponent },
+  { path: 'heroes', component: HeroesComponent }
+];
